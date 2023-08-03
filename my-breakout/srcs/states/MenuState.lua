@@ -5,12 +5,22 @@ function MenuState:init()
 end
 
 function MenuState:update(dt)
-    if love.keyboard.wasPressed('up') then
+    if love.keyboard.wasPressed('w') then
         self.current = math.max(self.current - 1, 1)
     end
     
-    if love.keyboard.wasPressed('down') then
+    if love.keyboard.wasPressed('s') then
         self.current = math.min(self.current + 1, 2)
+    end
+
+    if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
+        if self.current == 1 then
+            gStateMachine:change('choosing')
+        end
+
+        if self.current == 2 then
+            
+        end
     end
 end
 

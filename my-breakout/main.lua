@@ -11,6 +11,8 @@ function love.load()
         vsync = true,
     })
 
+    math.randomseed(os.time())
+
     gTextures = {
         ['arrows'] = love.graphics.newImage('graphics/arrows.png'),
         ['background'] = love.graphics.newImage('graphics/background.png'),
@@ -44,8 +46,23 @@ function love.load()
         ['big'] = love.graphics.newFont('fonts/font.ttf', 32),
     }
 
+    gLens = {
+        [1] = 32,
+        [2] = 64,
+        [3] = 96,
+        [4] = 128,
+    }
+
+    gArrows = getArrows(gTextures['arrows'], 24, 24)
+    gBricks = getBricks(gTextures['blocks'], 32, 16)
+    gPaddle = getPaddles(gTextures['blocks'])
+    gBalls = getBalls(gTextures['blocks'], 8, 8)
+
     gStateMachine = StateMachine {
         ['menu'] = function() return MenuState() end,
+        ['choosing'] = function() return ChoosePaddle() end,
+        ['serving'] = function() return Serving() end,
+        ['playing'] = function() return PlayingState() end,
     }
     gStateMachine:change('menu')
 
